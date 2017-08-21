@@ -1,6 +1,6 @@
 {
   "name": "soundtouch",
-  "version": "4.0.0",
+  "version": "1.0.0",
   "description": "Bose SoundTouch node js API",
   "main": "discovery.js",
   "scripts": {
