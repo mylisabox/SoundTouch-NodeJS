@@ -1,6 +1,6 @@
 {
-  "name": "soundtouch",
-  "version": "1.0.0",
+  "name": "lisa-bose-soundtouch",
+  "version": "1.0.1",
   "description": "Bose SoundTouch node js API",
   "main": "discovery.js",
   "scripts": {
