@@ -1,0 +1,21 @@
+language: node_js
+node_js:
+- 6
+- 7
+- 8
+notifications:
+  email: false
+  webhooks:
+    urls:
+    - https://webhooks.gitter.im/e/117063f9c1031b17e557
+    on_start: never
+    on_failure: change
+deploy:
+  provider: npm
+  email: hello@mylisabox.com
+  api_key:
+    secure: KPSwOgHmiHCf2r1c1q1zt3bzjuonbhZpuHIJe1/NpGtawIN1oXGPYCSQOzcfs3OyeGS1iSuz7fO8yQvwIq3MjAYwpzFCDBdKvHpwc9eCSIweA8G08j+DeihGYOOI7VmY0wRj7LejDeYXu+ck8rVX849OyTUQmGrw3+tU/ZSiSKBSH+Fo7GFscdbIUbFrdylll6m84oaegARaIiZKKBVddyHFInRwk1kLSBresoLVZmnHZiLQelI+xvFoESyXRKZJ3cUfXqblbI7XiNjqzsUZM0aPMrm78OQLWV3wOE6ZmQ4YdxIKAxobjNuo7Rj4Bfjf4qASle2wt622DYYmjMCc9Wwjzd3T9GrH8lsedJ5n8L6RmQPgTSdGcelf1+ZScxM67TmNXEPTPn9no6R2dguQ1OQ2Q4si/tvxwen2+MsOMKpvfqGr4E5ni4qitRU4g8sTqmUJ33ypLzxwMj5mx22D45GH+m0QVlTc9emelRU5jAblMl1UMHZ38wUROIIsi72zCspkpX1ISUMctnnExmYQrpsCu5n391zOhPCuFlf/nkgpk+DF/OeRBLUWSs25lEfC38riU4SQ2JXLDhCrrc+Ka04NDfX9hz9sZDA3X6wUx2krD4etFNXb2i7s5QrzUnZN5FsB+FgBybrKVyJ/gZH3561iwnv4IAO2zb8k11kL3xY=
+  on:
+    tags: true
+    repo: mylisabox/lisa-bose-soundtouch
+    node: 8

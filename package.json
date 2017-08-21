@@ -4,32 +4,30 @@
   "description": "Bose SoundTouch node js API",
   "main": "discovery.js",
   "scripts": {
-    "test": "make test"
+    "test": "echo 'ok'"
   },
   "author": "CONNCTED",
   "license": "ISC",
   "devDependencies": {
-    "chai": "^3.5.0",
-    "mocha": "^3.2.0"
+    "eslint": "^4.5.0"
   },
   "dependencies": {
-    "express": "^4.15.2",
     "mdns": "^2.3.3",
-    "net": "^1.0.2",
     "request": "^2.81.0",
-    "require-fu": "^1.0.0",
     "websocket": "^1.0.24",
     "xml2json": "^0.11.0"
   },
   "keywords": [
     "soundtouch",
-    "bose"
+    "bose",
+    "lisa",
+    "mylisabox"
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/CONNCTED/SoundTouch-NodeJS.git"
+    "url": "git://github.com/mylisabox/lisa-bose-soundTouch.git"
   },
   "bugs": {
-    "url": "http://github.com/CONNCTED/SoundTouch-NodeJS/issues"
+    "url": "http://github.com/mylisabox/lisa-bose-soundTouch/issues"
   }
 }

@@ -3,14 +3,14 @@
 ## Installation
 Include this project into your project. 
 ```bash
-npm install soundtouch --save
+npm install lisa-bose-soundTouch --save
 ```
-Start the server to make use of the HTTP API
+Run sample file:
 ```bash
-git clone https://github.com/CONNCTED/SoundTouch-NodeJS.git
-cd SoundTOuch-NodeJS
+git clone https://github.com/mylisabox/lisa-bose-soundTouch.git
+cd lisa-bose-soundTouch
 npm install
-node server.js
+node sample.js
 ```
 
 ## Usage
