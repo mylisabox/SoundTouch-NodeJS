@@ -116,7 +116,15 @@ SoundTouchAPI.prototype.play = function (handler) {
 };
 
 SoundTouchAPI.prototype.stop = function (handler) {
-    this.pressKey(KEYS.STOP, handler);
+  this.pressKey(KEYS.STOP, handler);
+};
+
+SoundTouchAPI.prototype.next = function (handler) {
+  this.pressKey(KEYS.NEXT_TRACK, handler);
+};
+
+SoundTouchAPI.prototype.previous = function (handler) {
+  this.pressKey(KEYS.PREV_TRACK, handler);
 };
 
 SoundTouchAPI.prototype.pause = function (handler) {
