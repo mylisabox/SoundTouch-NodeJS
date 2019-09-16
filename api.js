@@ -64,9 +64,9 @@ SoundTouchAPI.prototype.isAlive = function (handler) {
             handler(false);
             return;
         }
-        let isAlive = json.nowPlaying.source !== SOURCES.STANDBY;
+        let isAlive = json.nowPlaying.attributes.source !== SOURCES.STANDBY;
         if (isAlive) {
-            isAlive = json.nowPlaying.playStatus === 'PLAY_STATE';
+            isAlive = json.nowPlaying.playStatus.text === 'PLAY_STATE';
         }
         handler(isAlive);
     });
@@ -78,7 +78,7 @@ SoundTouchAPI.prototype.isPoweredOn = function (handler) {
             handler(false);
             return;
         }
-        const isAlive = json.nowPlaying.source !== SOURCES.STANDBY;
+        const isAlive = json.nowPlaying.attributes.source !== SOURCES.STANDBY;
         handler(isAlive);
     });
 };
@@ -280,7 +280,7 @@ SoundTouchAPI.prototype.socketUpdate = function (json) {
         }
 
         //special listener: Powered On // Powered Off
-        const source = json.nowPlayingUpdated.nowPlaying.source;
+        const source = json.nowPlayingUpdated.nowPlaying.attributes.source;
 
         if (this.socket.source !== source) {
             this.socket.source = source;
@@ -290,7 +290,7 @@ SoundTouchAPI.prototype.socketUpdate = function (json) {
         }
 
         //special listener: Playing // Not Playing
-        const playStatus = json.nowPlayingUpdated.nowPlaying.playStatus;
+        const playStatus = json.nowPlayingUpdated.nowPlaying.playStatus ? json.nowPlayingUpdated.nowPlaying.playStatus.text : null;
         if (this.socket.playStatus !== playStatus) {
             this.socket.playStatus = playStatus;
             if (this.socket.isPlayingListener !== undefined) {
@@ -298,10 +298,10 @@ SoundTouchAPI.prototype.socketUpdate = function (json) {
             }
         }
     } else if (json.volumeUpdated !== undefined) {
-        this.socket.volume = json.volumeUpdated.volume.actualvolume;
+        this.socket.volume = json.volumeUpdated.volume.actualvolume.text;
 
         if (this.socket.volumeUpdatedListener !== undefined) {
-            this.socket.volumeUpdatedListener(json.volumeUpdated.volume.actualvolume, json.volumeUpdated);
+            this.socket.volumeUpdatedListener(json.volumeUpdated.volume.actualvolume.text, json.volumeUpdated);
         }
     } else if (json.connectionStateUpdated !== undefined) {
         if (this.socket.connectionStateUpdatedListener !== undefined) {

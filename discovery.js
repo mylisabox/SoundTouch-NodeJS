@@ -1,4 +1,5 @@
-const mdns = require('mdns');
+const mdns = require('mdns-js');
+mdns.excludeInterface('0.0.0.0');
 const SoundTouchAPI = require('./api');
 
 const SoundTouchDiscovery = function () {
@@ -55,11 +56,13 @@ SoundTouchDiscovery.prototype.createZone = function (members, handler) {
         if (i === 0) {
             item.master = member;
             data += '<zone master="' + member + '" senderIPAddress="127.0.0.1">';
-        } else if (i === 1) {
+        }
+        else if (i === 1) {
             item.slaves = [];
             item.slaves.push(member);
             data += '<member>' + member + '</member>';
-        } else {
+        }
+        else {
             item.slaves.push(member);
             data += '<member>' + member + '</member>';
         }
@@ -73,19 +76,25 @@ SoundTouchDiscovery.prototype.createZone = function (members, handler) {
     });
 };
 
-SoundTouchDiscovery.prototype.search = function (callbackUp, callbackDown) {
+SoundTouchDiscovery.prototype.search = function (callbackUp) {
     console.log("Started Searching...");
     const discovery = this;
-    const sequence = [
-        mdns.rst.DNSServiceResolve(),
-        mdns.rst.getaddrinfo({ families: [4] })
-    ];
 
     // watch all http servers
-    this.browser = mdns.createBrowser(mdns.tcp('soundtouch'), { resolverSequence: sequence });
-    this.browser.on('serviceUp', function (service) {
+    this.browser = mdns.createBrowser(mdns.tcp('soundtouch'));
+
+    this.browser.on('ready', () => {
+        this.browser.discover();
+    });
+    this.browser.on('update', function (service) {
+        for (let i = 0; i < service.txt.length; i++) {
+            const desc = service.txt[i];
+            if(desc.startsWith('MAC=')) {
+                service.mac_address = desc.replace('MAC=', '').trim();
+            }
+        }
+        service.name = service.fullname.split('.')[0];
         service.ip = service.addresses[0];
-        service.mac_address = service.txtRecord.MAC;
         const deviceAPI = new SoundTouchAPI(service);
         discovery.addDevice(deviceAPI);
         if (callbackUp !== undefined) {
@@ -93,13 +102,6 @@ SoundTouchDiscovery.prototype.search = function (callbackUp, callbackDown) {
         }
 
     });
-    this.browser.on('serviceDown', function (service) {
-        discovery.deleteDevice(service);
-        if (callbackDown !== undefined) {
-            callbackDown(service);
-        }
-    });
-    this.browser.start();
 };
 
 SoundTouchDiscovery.prototype.stopSearching = function () {

@@ -1,6 +1,7 @@
-var soundTouchDiscovery = require('./discovery');
+const soundTouchDiscovery = require('../discovery');
 
 soundTouchDiscovery.search(function(deviceAPI) {
+    if(deviceAPI.name === 'Lifestyle') {return;}
 
     console.log(deviceAPI.name + " --> " + deviceAPI.getDevice().ip);
 
@@ -13,11 +14,11 @@ soundTouchDiscovery.search(function(deviceAPI) {
     });
 
     deviceAPI.getVolume(function(json) {
-        console.log(deviceAPI.name + ' --> Volume: ', json.volume.actualvolume);
+        console.log(deviceAPI.name + ' --> Volume: ', json.volume.actualvolume.text);
     });
 
     deviceAPI.getNowPlaying(function(json) {
-        console.log(deviceAPI.name + ' --> Now playing: ', json.nowPlaying.ContentItem);
+        console.log(deviceAPI.name + ' --> Now playing: ', json.nowPlaying);
     });
 
 

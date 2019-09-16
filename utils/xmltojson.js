@@ -1,28 +1,33 @@
-var parser = require('xml2json');
+const parser = require('xml-js');
 
 module.exports = {
 
     convert: function (xml) {
-        var options = {
-            object: false,
-            reversible: false,
-            coerce: false,
-            sanitize: true,
+        const options = {
+            compact: true,
             trim: true,
-            arrayNotation: false
+            textKey: 'text',
+            sanitize: true,
+            attributesKey: 'attributes'
         };
-        return JSON.parse(parser.toJson(xml, options));
+        return JSON.parse(parser.xml2json(xml, options));
     },
 
     convertResponse: function(response, handler) {
-        var output = "";
-
+        let output = "";
+        const options = {
+            compact: true,
+            textKey: 'text',
+            trim: true,
+            sanitize: true,
+            attributesKey: 'attributes'
+        };
         response.on('data', function (chunk) {
             output += chunk;
         });
 
         response.on('end', function() {
-            handler(JSON.parse(parser.toJson(output)))
+            handler(JSON.parse(parser.xml2json(output, options)))
         });
     }
 };
